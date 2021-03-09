@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
                     right: 10,
                   ),
                   constraints: BoxConstraints.expand(),
-                  color: Colors.blue[200],
                   child: Keypad(),
                 ),
               )
@@ -61,9 +60,9 @@ class MyApp extends StatelessWidget {
 }
 
 class Screen extends StatelessWidget {
-  final Widget screenInputArea = Placeholder();
+  final Widget screenInputArea = Container(color: Colors.grey[200]);
 
-  final Widget screenOutputArea = Placeholder();
+  final Widget screenOutputArea = Container(color: Colors.grey[200]);
 
   @override
   Widget build(BuildContext context) {
@@ -96,203 +95,68 @@ class Keypad extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Expanded(
-            //1
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            //2
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          KeypadRow(),
+          KeypadRow(),
+          KeypadRow(),
+          KeypadRow(),
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.purple[200],
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: Colors.grey,
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.grey,
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: Placeholder(
-                      fallbackHeight: 10,
-                      fallbackWidth: 10,
-                    ),
-                  ),
-                ),
+                ExpandedTempWidget(), //0
+                ExpandedTempWidget(), //
+                ExpandedTempWidget(), //.
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class KeypadRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        children: [
+          ExpandedTempWidget(),
+          ExpandedTempWidget(),
+          ExpandedTempWidget(),
+          ExpandedTempWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+class ExpandedTempWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Button(),
+    );
+  }
+}
+
+class Button extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      margin: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey[100],
+          width: 2,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        color: Colors.pink[50],
+      ),
+      child: Center(
+        child: (Text('1')),
       ),
     );
   }
