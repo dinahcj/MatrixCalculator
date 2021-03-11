@@ -5,12 +5,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  //Root
-
-  final Widget screenArea = Placeholder();
-
-  final Widget keypadArea = Placeholder();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,27 +14,20 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ), */
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Matrix Calculator',
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: Colors.purple[100],
-        ),
         body: Center(
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
-                    margin: EdgeInsets.all(10),
+                    //margin: EdgeInsets.all(10),
                     constraints: BoxConstraints.expand(),
                     //make screen width of device
                     color: Colors.grey[400],
                     child: Screen()),
               ),
               Expanded(
-                flex: 4,
+                flex: 3,
                 child: Container(
                   margin: EdgeInsets.only(
                     bottom: 30,
@@ -60,9 +47,49 @@ class MyApp extends StatelessWidget {
 }
 
 class Screen extends StatelessWidget {
-  final Widget screenInputArea = Container(color: Colors.grey[200]);
+  //When clearing Screen should new instance be generated & rendered?
+  final Widget screenInputArea = Container(
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      border: Border(
+        bottom: BorderSide(
+          //                   <--- left side
+          width: 1.0,
+          color: Colors.grey[400],
+        ),
+      ),
+    ),
+    child: Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 90, left: 300),
+        child: Text(
+          "0",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    ),
+  );
 
-  final Widget screenOutputArea = Container(color: Colors.grey[200]);
+  final Widget screenOutputArea = Container(
+    color: Colors.grey[200],
+    child: Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 185, left: 300),
+        child: Text(
+          "0",
+          style: TextStyle(
+            fontSize: 50,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +97,14 @@ class Screen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
                 constraints: BoxConstraints.expand(),
                 color: Colors.pink[100],
                 child: screenInputArea),
           ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Container(
                 constraints: BoxConstraints.expand(),
                 color: Colors.pink[200],
@@ -92,19 +119,96 @@ class Screen extends StatelessWidget {
 class Keypad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+      ),
       child: Column(
         children: [
-          KeypadRow(),
-          KeypadRow(),
-          KeypadRow(),
-          KeypadRow(),
           Expanded(
             child: Row(
               children: [
-                ExpandedTempWidget(), //0
-                ExpandedTempWidget(), //
-                ExpandedTempWidget(), //.
+                ButtonContainer(
+                  Text('AC'),
+                ), //0
+                ButtonContainer(
+                  Text('T'),
+                ), //.
+                ButtonContainer(
+                  Text('Det'),
+                ),
+                ButtonContainer(
+                  Text('Inv'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                ButtonContainer(
+                  Text('7'),
+                ), //0
+                ButtonContainer(
+                  Text('8'),
+                ), //.
+                ButtonContainer(
+                  Text('9'),
+                ),
+                ButtonContainer(
+                  Text('+'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                ButtonContainer(
+                  Text('4'),
+                ), //0
+                ButtonContainer(
+                  Text('5'),
+                ), //.
+                ButtonContainer(
+                  Text('6'),
+                ),
+                ButtonContainer(
+                  Text('-'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                ButtonContainer(
+                  Text('1'),
+                ), //0
+                ButtonContainer(
+                  Text('2'),
+                ), //.
+                ButtonContainer(
+                  Text('3'),
+                ),
+                ButtonContainer(
+                  Text('*'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                ButtonContainer(
+                  Text('0'),
+                ), //0
+                ButtonContainer(
+                  Text('.'),
+                ), //.
+                ButtonContainer(
+                  Text('='),
+                ),
               ],
             ),
           ),
@@ -114,49 +218,46 @@ class Keypad extends StatelessWidget {
   }
 }
 
-class KeypadRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        children: [
-          ExpandedTempWidget(),
-          ExpandedTempWidget(),
-          ExpandedTempWidget(),
-          ExpandedTempWidget(),
-        ],
-      ),
-    );
-  }
-}
+class ButtonContainer extends StatelessWidget {
+  Widget textValue;
 
-class ExpandedTempWidget extends StatelessWidget {
+  ButtonContainer(Widget textValue) {
+    this.textValue = textValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Button(),
+      child: Button(this.textValue),
     );
   }
 }
 
 class Button extends StatelessWidget {
+  Widget buttonValue;
+
+  Button(Widget buttonValue) {
+    this.buttonValue = buttonValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
-      margin: EdgeInsets.all(8),
+      height: 90,
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.grey[100],
           width: 2,
         ),
         borderRadius: BorderRadius.all(
-          Radius.circular(20),
+          Radius.circular(10),
         ),
-        color: Colors.pink[50],
+        color: Colors.blue[100],
       ),
       child: Center(
-        child: (Text('1')),
+        child: this.buttonValue,
       ),
     );
   }
