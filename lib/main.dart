@@ -9,11 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Matrix Calculator',
-      /* theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ), */
       home: Scaffold(
+        backgroundColor: Colors.blue,
         body: Center(
           child: Column(
             children: [
@@ -22,8 +19,6 @@ class MyApp extends StatelessWidget {
                 child: Container(
                     //margin: EdgeInsets.all(10),
                     constraints: BoxConstraints.expand(),
-                    //make screen width of device
-                    color: Colors.grey[400],
                     child: Screen()),
               ),
               Expanded(
@@ -47,46 +42,31 @@ class MyApp extends StatelessWidget {
 }
 
 class Screen extends StatelessWidget {
-  //When clearing Screen should new instance be generated & rendered?
+  /* Top half of app is the calculator screen 
+    * When clearing Screen should new instance be 
+    * generated & rendered? 
+  */
+
   final Widget screenInputArea = Container(
+    // Displays the values input by the user at the top
+    padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
     decoration: BoxDecoration(
-      color: Colors.grey[200],
       border: Border(
         bottom: BorderSide(
-          //                   <--- left side
-          width: 1.0,
-          color: Colors.grey[400],
+          width: 0.7,
+          color: Colors.grey[100],
         ),
       ),
     ),
-    child: Center(
-      child: Container(
-        margin: EdgeInsets.only(top: 90, left: 300),
-        child: Text(
-          "0",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    ),
+    child: InputValue('0'),
   );
 
   final Widget screenOutputArea = Container(
-    color: Colors.grey[200],
+    // Displays the solution to the input operation sequence
+    padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
     child: Center(
       child: Container(
-        margin: EdgeInsets.only(top: 185, left: 300),
-        child: Text(
-          "0",
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
-        ),
+        child: OutputSolution('0'),
       ),
     ),
   );
@@ -99,16 +79,16 @@ class Screen extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-                constraints: BoxConstraints.expand(),
-                color: Colors.pink[100],
-                child: screenInputArea),
+              constraints: BoxConstraints.expand(),
+              child: screenInputArea,
+            ),
           ),
           Expanded(
             flex: 4,
             child: Container(
-                constraints: BoxConstraints.expand(),
-                color: Colors.pink[200],
-                child: screenOutputArea),
+              constraints: BoxConstraints.expand(),
+              child: screenOutputArea,
+            ),
           ),
         ],
       ),
@@ -117,98 +97,59 @@ class Screen extends StatelessWidget {
 }
 
 class Keypad extends StatelessWidget {
+  // Dispays keypad numbers and operations buttons
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-      ),
       child: Column(
         children: [
           Expanded(
             child: Row(
               children: [
-                ButtonContainer(
-                  Text('AC'),
-                ), //0
-                ButtonContainer(
-                  Text('T'),
-                ), //.
-                ButtonContainer(
-                  Text('Det'),
-                ),
-                ButtonContainer(
-                  Text('Inv'),
-                ),
+                ButtonValue('CLEAR'),
+                ButtonValue('AT'),
+                ButtonValue('DET'),
+                ButtonValue('INV'),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonContainer(
-                  Text('7'),
-                ), //0
-                ButtonContainer(
-                  Text('8'),
-                ), //.
-                ButtonContainer(
-                  Text('9'),
-                ),
-                ButtonContainer(
-                  Text('+'),
-                ),
+                ButtonValue('7'),
+                ButtonValue('8'),
+                ButtonValue('9'),
+                ButtonValue('+'),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonContainer(
-                  Text('4'),
-                ), //0
-                ButtonContainer(
-                  Text('5'),
-                ), //.
-                ButtonContainer(
-                  Text('6'),
-                ),
-                ButtonContainer(
-                  Text('-'),
-                ),
+                ButtonValue('4'),
+                ButtonValue('5'),
+                ButtonValue('6'),
+                ButtonValue('-'),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonContainer(
-                  Text('1'),
-                ), //0
-                ButtonContainer(
-                  Text('2'),
-                ), //.
-                ButtonContainer(
-                  Text('3'),
-                ),
-                ButtonContainer(
-                  Text('*'),
-                ),
+                ButtonValue('1'),
+                ButtonValue('2'),
+                ButtonValue('3'),
+                ButtonValue('*'),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonContainer(
-                  Text('0'),
-                ), //0
-                ButtonContainer(
-                  Text('.'),
-                ), //.
-                ButtonContainer(
-                  Text('='),
-                ),
+                ButtonValue('0'),
+                ButtonValue('.'),
+                ButtonValue('='),
               ],
             ),
           ),
@@ -218,17 +159,25 @@ class Keypad extends StatelessWidget {
   }
 }
 
-class ButtonContainer extends StatelessWidget {
-  Widget textValue;
+class ButtonValue extends StatelessWidget {
+  String textValue;
 
-  ButtonContainer(Widget textValue) {
+  ButtonValue(String textValue) {
     this.textValue = textValue;
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Button(this.textValue),
+      child: Button(
+        Text(
+          this.textValue,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -240,6 +189,8 @@ class Button extends StatelessWidget {
     this.buttonValue = buttonValue;
   }
 
+  onTap() => {};
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -249,15 +200,58 @@ class Button extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.grey[100],
-          width: 2,
+          width: 0.9,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
-        color: Colors.blue[100],
       ),
       child: Center(
         child: this.buttonValue,
+      ),
+    );
+  }
+}
+
+class OutputSolution extends StatelessWidget {
+  String output;
+
+  OutputSolution(String output) {
+    this.output = output;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomRight,
+      child: Text(
+        this.output,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 35,
+        ),
+      ),
+    );
+  }
+}
+
+class InputValue extends StatelessWidget {
+  String input;
+
+  InputValue(String input) {
+    this.input = input;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomRight,
+      child: Text(
+        this.input,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+        ),
       ),
     );
   }
