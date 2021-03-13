@@ -10,27 +10,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Matrix Calculator',
       home: Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
         body: Center(
           child: Column(
             children: [
               Expanded(
                 flex: 3,
                 child: Container(
-                    //margin: EdgeInsets.all(10),
-                    constraints: BoxConstraints.expand(),
-                    child: Screen()),
+                    constraints: BoxConstraints.expand(), child: Screen()),
               ),
               Expanded(
                 flex: 3,
                 child: Container(
-                  margin: EdgeInsets.only(
-                    bottom: 30,
-                    left: 10,
-                    right: 10,
-                  ),
+                  margin: EdgeInsets.all(25),
                   constraints: BoxConstraints.expand(),
-                  child: Keypad(),
+                  child: Center(child: Keypad()),
                 ),
               )
             ],
@@ -58,7 +52,7 @@ class Screen extends StatelessWidget {
         ),
       ),
     ),
-    child: InputValue('0'),
+    child: Matrix(),
   );
 
   final Widget screenOutputArea = Container(
@@ -77,14 +71,15 @@ class Screen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
+              padding: const EdgeInsets.only(top: 50),
               constraints: BoxConstraints.expand(),
               child: screenInputArea,
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Container(
               constraints: BoxConstraints.expand(),
               child: screenOutputArea,
@@ -107,107 +102,54 @@ class Keypad extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                ButtonValue('CLEAR'),
-                ButtonValue('AT'),
-                ButtonValue('DET'),
-                ButtonValue('INV'),
+                Expanded(child: OperatorButton('CLEAR')),
+                Expanded(child: OperatorButton('AT')),
+                Expanded(child: OperatorButton('DET')),
+                Expanded(child: OperatorButton('INV')),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonValue('7'),
-                ButtonValue('8'),
-                ButtonValue('9'),
-                ButtonValue('+'),
+                Expanded(child: LiteralButton('7')),
+                Expanded(child: LiteralButton('8')),
+                Expanded(child: LiteralButton('9')),
+                Expanded(child: OperatorButton('+')),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonValue('4'),
-                ButtonValue('5'),
-                ButtonValue('6'),
-                ButtonValue('-'),
+                Expanded(child: LiteralButton('4')),
+                Expanded(child: LiteralButton('5')),
+                Expanded(child: LiteralButton('6')),
+                Expanded(child: OperatorButton('-')),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonValue('1'),
-                ButtonValue('2'),
-                ButtonValue('3'),
-                ButtonValue('*'),
+                Expanded(child: LiteralButton('1')),
+                Expanded(child: LiteralButton('2')),
+                Expanded(child: LiteralButton('3')),
+                Expanded(child: OperatorButton('*')),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                ButtonValue('0'),
-                ButtonValue('.'),
-                ButtonValue('='),
+                Expanded(child: LiteralButton('0')),
+                Expanded(child: LiteralButton('1')),
+                Expanded(child: LiteralButton('.')),
+                Expanded(child: OperatorButton('NEXT')),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ButtonValue extends StatelessWidget {
-  String textValue;
-
-  ButtonValue(String textValue) {
-    this.textValue = textValue;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Button(
-        Text(
-          this.textValue,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Button extends StatelessWidget {
-  Widget buttonValue;
-
-  Button(Widget buttonValue) {
-    this.buttonValue = buttonValue;
-  }
-
-  onTap() => {};
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey[100],
-          width: 0.9,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: Center(
-        child: this.buttonValue,
       ),
     );
   }
@@ -227,7 +169,7 @@ class OutputSolution extends StatelessWidget {
       child: Text(
         this.output,
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 35,
         ),
       ),
@@ -249,8 +191,123 @@ class InputValue extends StatelessWidget {
       child: Text(
         this.input,
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 25,
+        ),
+      ),
+    );
+  }
+}
+
+class Matrix extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        alignment: Alignment.bottomRight,
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  MatrixElement(),
+                  MatrixElement(),
+                  MatrixElement(),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  MatrixElement(),
+                  MatrixElement(),
+                  MatrixElement(),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  MatrixElement(),
+                  MatrixElement(),
+                  MatrixElement(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MatrixElement extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: TextField(
+        decoration: InputDecoration(
+          fillColor: Colors.blue[900],
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+class LiteralButton extends StatelessWidget {
+  //Buttons 0-9 and "."
+  String buttonLabel;
+  var buttonValue;
+
+  LiteralButton(buttonLabel) {
+    this.buttonLabel = buttonLabel;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color customColor = const Color(0xFFe896ea);
+
+    return Container(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: TextButton(
+        child: Text(
+          this.buttonLabel,
+        ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(customColor),
+          shadowColor: MaterialStateProperty.all<Color>(Colors.grey[100]),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class OperatorButton extends StatelessWidget {
+  //Buttons 0-9 and "."
+  String buttonLabel;
+  var buttonOperation;
+
+  OperatorButton(buttonLabel) {
+    this.buttonLabel = buttonLabel;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color customColor = const Color(0xFF42A5F5);
+
+    return Container(
+      //margin: EdgeInsets.all(2),
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: TextButton(
+        child: Text(
+          this.buttonLabel,
+        ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(customColor),
+          shadowColor: MaterialStateProperty.all<Color>(Colors.grey[100]),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),
     );
