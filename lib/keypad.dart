@@ -54,7 +54,7 @@ class Keypad extends StatelessWidget {
                 Expanded(child: LiteralButton('0')),
                 Expanded(child: LiteralButton('1')),
                 Expanded(child: LiteralButton('.')),
-                Expanded(child: OperatorButton('NEXT')),
+                Expanded(child: OperatorButton('=')),
               ],
             ),
           ),
@@ -64,6 +64,7 @@ class Keypad extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LiteralButton extends StatelessWidget {
   //Buttons 0-9 and "."
   String buttonLabel;
@@ -103,6 +104,7 @@ class LiteralButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class OperatorButton extends StatelessWidget {
   String buttonLabel;
   var buttonOperation;
@@ -113,8 +115,6 @@ class OperatorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color customColor = const Color(0xFF42A5F5);
-
     return Container(
       margin: EdgeInsets.only(left: 5, right: 5),
       padding: const EdgeInsets.only(left: 5, right: 5),

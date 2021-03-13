@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Container(
-                      constraints: BoxConstraints.expand(), child: Screen()),
+                    constraints: BoxConstraints.expand(),
+                    child: Screen(),
+                  ),
                 ),
                 Expanded(
                   flex: 3,
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
                     constraints: BoxConstraints.expand(),
                     child: Center(child: Keypad()),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:app/main.dart';
 import 'package:app/ matrix.dart';
 
 class Screen extends StatelessWidget {
-  /* Top half of app is the calculator screen 
-    * When clearing Screen should new instance be 
-    * generated & rendered? 
+  /* When clearing Screen should new instance be 
+  * generated & rendered? 
   */
 
   final Widget screenInputArea = Container(
     // Displays the values input by the user at the top
     padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
-    decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(
-          width: 0.7,
-          color: Colors.grey[100],
-        ),
-      ),
-    ),
     child: MatrixForm(),
   );
 
@@ -27,7 +17,8 @@ class Screen extends StatelessWidget {
     padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
     child: Center(
       child: Container(
-        child: OutputSolution('0'), /* will be changed to display solution */
+        /* will be changed to display solution */
+        child: OutputSolution('0'),
       ),
     ),
   );
@@ -58,6 +49,7 @@ class Screen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class OutputSolution extends StatelessWidget {
   String output;
 
@@ -81,6 +73,7 @@ class OutputSolution extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class InputValue extends StatelessWidget {
   String input;
 
