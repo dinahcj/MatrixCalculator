@@ -298,7 +298,6 @@ class OperatorButton extends StatelessWidget {
     Color customColor = const Color(0xFF42A5F5);
 
     return Container(
-      //margin: EdgeInsets.all(2),
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: TextButton(
         child: Text(
