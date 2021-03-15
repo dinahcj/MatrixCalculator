@@ -73,8 +73,6 @@ class LiteralButton extends StatelessWidget {
     this.buttonLabel = buttonLabel;
   }
 
-  void shortFunction() => print('Fat Arrow One Line Function Called');
-
   @override
   Widget build(BuildContext context) {
     //Color customColor = const Color(0xFFe896ea);

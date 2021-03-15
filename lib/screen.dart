@@ -7,13 +7,13 @@ class Screen extends StatelessWidget {
   */
 
   final Widget screenInputArea = Container(
-    // Displays the values input by the user at the top
+    // Displays the form where user inputs matrix values
     padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
     child: MatrixForm(),
   );
 
   final Widget screenOutputArea = Container(
-    // Displays the solution to the input operation sequence
+    // Displays the solution to the operation sequence
     padding: EdgeInsets.only(top: 7, right: 30, left: 30, bottom: 7),
     child: Center(
       child: Container(
@@ -51,6 +51,7 @@ class Screen extends StatelessWidget {
 
 // ignore: must_be_immutable
 class OutputSolution extends StatelessWidget {
+  // Output Result of Calculations - create Calculator class to handle operations
   String output;
 
   OutputSolution(String output) {
@@ -62,34 +63,10 @@ class OutputSolution extends StatelessWidget {
     return Container(
       alignment: Alignment.bottomRight,
       child: Text(
-        /** will be changed to stateful widget to render solutions **/
         this.output,
         style: TextStyle(
           color: Colors.grey[100],
           fontSize: 35,
-        ),
-      ),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class InputValue extends StatelessWidget {
-  String input;
-
-  InputValue(String input) {
-    this.input = input;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomRight,
-      child: Text(
-        this.input,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 25,
         ),
       ),
     );

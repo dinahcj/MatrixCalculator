@@ -19,15 +19,6 @@ class MatrixFormState extends State<MatrixForm> {
   final _newMatrix = GlobalKey<FormState>();
   final myController = TextEditingController();
 
-  /* final Widget matrixElement = Expanded(
-    child: TextFormField(
-      decoration: InputDecoration(
-        fillColor: Colors.grey[400],
-        border: OutlineInputBorder(),
-      ), //controller: myController.text(),
-    ),
-  ); */
-
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
