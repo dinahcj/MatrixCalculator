@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app/ matrix.dart';
+import 'package:app/matrixform.dart';
 
 class Screen extends StatelessWidget {
   /* When clearing Screen should new instance be 
